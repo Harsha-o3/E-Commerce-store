@@ -1,0 +1,1028 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Shop - Ecommerce Website</title>
+    <script src="https://kit.fontawesome.com/0e53af926d.js" crossorigin="anonymous"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Spartan', sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        /* Header Styles */
+        #header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 20px 80px;
+            background: #E3E6F3;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.06);
+            position: sticky;
+            inset-block-start: 0;
+            inset-inline-start: 0;
+            z-index: 999;
+        }
+
+        .header-logo img {
+            block-size: 50px;
+        }
+
+        .header-list {
+            display: flex;
+            align-items: center;
+        }
+
+        .header-list-nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        .header-list-nav ul li {
+            padding: 0 20px;
+            position: relative;
+        }
+
+        .header-list-nav ul li a {
+            text-decoration: none;
+            font-size: 16px;
+            font-weight: 600;
+            color: #1a1a1a;
+            transition: 0.3s ease;
+        }
+
+        .header-list-nav ul li a:hover,
+        .header-list-nav ul li a.active {
+            color: #088178;
+        }
+
+        .header-list-icon {
+            margin-inline-start: 20px;
+            position: relative;
+        }
+
+        .header-list-icon a {
+            font-size: 20px;
+            color: #1a1a1a;
+            text-decoration: none;
+        }
+
+        .cart-count {
+            position: absolute;
+            inset-block-start: -8px;
+            inset-inline-end: -8px;
+            background: #088178;
+            color: white;
+            border-radius: 50%;
+            inline-size: 20px;
+            block-size: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        /* Shop Header */
+        #shop-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 60px 0;
+            text-align: center;
+            color: white;
+        }
+
+        #shop-header h1 {
+            font-size: 48px;
+            margin-block-end: 10px;
+        }
+
+        #shop-header p {
+            font-size: 18px;
+            opacity: 0.9;
+        }
+
+        /* Filter and Sort Bar */
+        .filter-sort-bar {
+            padding: 20px 80px;
+            background: #f8f8f8;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+
+        .filter-section {
+            display: flex;
+            gap: 20px;
+            align-items: center;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
+        }
+
+        .filter-group label {
+            font-size: 14px;
+            font-weight: 600;
+            color: #333;
+        }
+
+        .filter-group select,
+        .filter-group input {
+            padding: 8px 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 14px;
+        }
+
+        .sort-section {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .results-count {
+            color: #666;
+            font-size: 14px;
+        }
+
+        /* Products Section */
+        .products-container {
+            padding: 40px 80px;
+        }
+
+        .pro-collection {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 30px;
+            margin-block-start: 20px;
+        }
+
+        .product-cart {
+            inline-size: 100%;
+            min-inline-size: 250px;
+            padding: 20px 15px;
+            border: 1px solid #cce7d0;
+            border-radius: 25px;
+            cursor: pointer;
+            box-shadow: 20px 20px 30px rgba(0, 0, 0, 0.02);
+            margin: 15px 0;
+            transition: 0.2s ease;
+            position: relative;
+            background: white;
+        }
+
+        .product-cart:hover {
+            box-shadow: 20px 20px 30px rgba(0, 0, 0, 0.06);
+            transform: translateY(-2px);
+        }
+
+        .product-cart img {
+            inline-size: 100%;
+            block-size: 200px;
+            object-fit: cover;
+            border-radius: 20px;
+        }
+
+        .product-cart span {
+            color: #606063;
+            font-size: 12px;
+            margin-block-start: 10px;
+            display: block;
+        }
+
+        .product-cart h4 {
+            padding-block-start: 7px;
+            color: #1a1a1a;
+            font-size: 14px;
+            font-weight: 700;
+        }
+
+        .stars {
+            color: rgb(243, 181, 25);
+            padding-block-start: 5px;
+        }
+
+        .product-cart .price {
+            color: #088178;
+            font-weight: 600;
+            padding-block-start: 5px;
+        }
+
+        .buy-icon {
+            inline-size: 40px;
+            block-size: 40px;
+            line-height: 40px;
+            border-radius: 50px;
+            background-color: #e8f6ea;
+            font-weight: 500;
+            color: #088178;
+            border: 1px solid #cce7d0;
+            position: absolute;
+            inset-block-end: 20px;
+            inset-inline-end: 20px;
+            text-align: center;
+            transition: 0.3s ease;
+        }
+
+        .buy-icon:hover {
+            background-color: #088178;
+            color: white;
+        }
+
+        /* Pagination */
+        .pagination {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 40px 0;
+            gap: 10px;
+        }
+
+        .pagination a {
+            padding: 10px 15px;
+            text-decoration: none;
+            color: #088178;
+            border: 1px solid #088178;
+            border-radius: 5px;
+            transition: 0.3s ease;
+        }
+
+        .pagination a:hover,
+        .pagination a.active {
+            background: #088178;
+            color: white;
+        }
+
+        /* Footer */
+        #footer {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            padding: 40px 80px;
+            background: #f8f8f8;
+        }
+
+        #footer > div {
+            flex: 1;
+            min-inline-size: 200px;
+            margin-block-end: 20px;
+        }
+
+        #footer h3 {
+            font-size: 18px;
+            margin-block-end: 15px;
+            color: #333;
+        }
+
+        #footer a {
+            color: #666;
+            text-decoration: none;
+            display: block;
+            margin-block-end: 8px;
+            transition: 0.3s ease;
+        }
+
+        #footer a:hover {
+            color: #088178;
+        }
+
+        .socials {
+            display: flex;
+            gap: 10px;
+            margin-block-start: 10px;
+        }
+
+        .socials a {
+            font-size: 20px;
+            color: #666;
+            display: inline-block;
+        }
+
+        .download {
+            display: flex;
+            gap: 10px;
+            margin: 10px 0;
+        }
+
+        .download img {
+            block-size: 40px;
+        }
+
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            inset-inline-start: 0;
+            inset-block-start: 0;
+            inline-size: 100%;
+            block-size: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+        }
+
+        .modal-content {
+            background-color: white;
+            margin: 5% auto;
+            padding: 30px;
+            border-radius: 10px;
+            inline-size: 90%;
+            max-inline-size: 500px;
+            position: relative;
+        }
+
+        .close {
+            color: #aaa;
+            float: inline-end;
+            font-size: 28px;
+            font-weight: bold;
+            cursor: pointer;
+            position: absolute;
+            inset-block-start: 15px;
+            inset-inline-end: 20px;
+        }
+
+        .close:hover {
+            color: black;
+        }
+
+        .cart-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-block-end: 1px solid #eee;
+        }
+
+        .cart-total {
+            font-size: 18px;
+            font-weight: bold;
+            color: #088178;
+            text-align: end;
+            margin-block-start: 20px;
+        }
+
+        /* Responsive */
+        @media (max-inline-size: 768px) {
+            #header {
+                padding: 15px 20px;
+            }
+
+            .filter-sort-bar {
+                padding: 15px 20px;
+                flex-direction: column;
+                align-items: stretch;
+            }
+
+            .products-container {
+                padding: 20px;
+            }
+
+            .pro-collection {
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 20px;
+            }
+
+            #footer {
+                padding: 30px 20px;
+            }
+
+            #shop-header h1 {
+                font-size: 36px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header Section -->
+    <header>
+        <div id="header">
+            <div class="header-logo">
+                <a href="index.html"><img src="images/logo.png" alt="Logo" /></a>
+            </div>
+            <div class="header-list">
+                <nav class="header-list-nav">
+                    <ul>
+                        <li><a href="index.html">Home</a></li>
+                        <li><a class="active" href="shop.html">Shop</a></li>
+                        <li><a href="blog.html">Blog</a></li>
+                        <li><a href="about.html">About</a></li>
+                        <li><a href="contact.html">Contact Us</a></li>
+                    </ul>
+                </nav>
+                <div class="header-list-icon">
+                    <a href="#" onclick="openCart()">
+                        <i class="fa fa-bag-shopping"></i>
+                        <span class="cart-count" id="cart-count">0</span>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Shop Header -->
+    <section id="shop-header">
+        <h1>Shop Collection</h1>
+        <p>Discover our amazing products at unbeatable prices</p>
+    </section>
+
+    <!-- Filter and Sort Bar -->
+    <div class="filter-sort-bar">
+        <div class="filter-section">
+            <div class="filter-group">
+                <label for="category-filter">Category</label>
+                <select id="category-filter" onchange="filterProducts()">
+                    <option value="all">All Categories</option>
+                    <option value="t-shirts">T-Shirts</option>
+                    <option value="hoodies">Hoodies</option>
+                    <option value="jackets">Jackets</option>
+                    <option value="accessories">Accessories</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label for="brand-filter">Brand</label>
+                <select id="brand-filter" onchange="filterProducts()">
+                    <option value="all">All Brands</option>
+                    <option value="adidas">Adidas</option>
+                    <option value="nike">Nike</option>
+                    <option value="puma">Puma</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label for="price-filter">Max Price</label>
+                <input type="range" id="price-filter" min="0" max="200" value="200" onchange="filterProducts()">
+                <span id="price-display">$200</span>
+            </div>
+        </div>
+        <div class="sort-section">
+            <label for="sort-select">Sort by:</label>
+            <select id="sort-select" onchange="sortProducts()">
+                <option value="default">Default</option>
+                <option value="price-low">Price: Low to High</option>
+                <option value="price-high">Price: High to Low</option>
+                <option value="name">Name A-Z</option>
+                <option value="rating">Rating</option>
+            </select>
+            <span class="results-count" id="results-count">Showing all products</span>
+        </div>
+    </div>
+
+    <!-- Products Section -->
+    <main>
+        <div class="products-container">
+            <div class="pro-collection" id="products-grid">
+                <!-- Products will be loaded here by JavaScript -->
+            </div>
+        </div>
+
+        <!-- Pagination -->
+        <div class="pagination">
+            <a href="#" onclick="changePage(-1)">&laquo; Previous</a>
+            <a href="#" class="active" onclick="goToPage(1)">1</a>
+            <a href="#" onclick="goToPage(2)">2</a>
+            <a href="#" onclick="goToPage(3)">3</a>
+            <a href="#" onclick="changePage(1)">Next &raquo;</a>
+        </div>
+    </main>
+
+    <!-- Cart Modal -->
+    <div id="cart-modal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeCart()">&times;</span>
+            <h2>Shopping Cart</h2>
+            <div id="cart-items"></div>
+            <div class="cart-total" id="cart-total">Total: $0.00</div>
+            <button style="background: #088178; color: white; padding: 10px 20px; border: none; border-radius: 5px; margin-block-start: 20px; cursor: pointer; inline-size: 100%;" onclick="checkout()">Checkout</button>
+        </div>
+    </div>
+
+    <!-- Footer Section -->
+    <footer>
+        <div id="footer">
+            <div class="contact">
+                <a href="index.html"><img src="images/logo.png" alt="Logo" /></a>
+                <br><br><br>
+                <h3>Contact</h3>
+                <address>
+                    <p><b>Address:</b> Wellington Road, Street 32. San Francisco</p>
+                    <p><b>Phone:</b> +1 234 567 8900</p>
+                    <p><b>Hours:</b> 10:00 - 18:00, Mon - Sat</p>
+                </address>
+                <h3>Follow Us</h3>
+                <br>
+                <div class="socials">
+                    <a href="#"><i class="fa-brands fa-facebook-square"></i></a>
+                    <a href="#"><i class="fa-brands fa-youtube"></i></a>
+                    <a href="#"><i class="fa-brands fa-telegram"></i></a>
+                    <a href="#"><i class="fa-brands fa-instagram"></i></a>
+                    <a href="#"><i class="fa-brands fa-twitter"></i></a>
+                </div>
+            </div>
+            <div class="about">
+                <h3>About</h3>
+                <br>
+                <a href="#">About Us</a>
+                <a href="#">Delivery Information</a>
+                <a href="#">Privacy Policy</a>
+                <a href="#">Terms & Conditions</a>
+                <a href="#">Contact Us</a>
+            </div>
+            <div class="myaccount">
+                <h3>My Account</h3>
+                <br>
+                <a href="#">Sign In</a>
+                <a href="#">View Cart</a>
+                <a href="#">My Wishlist</a>
+                <a href="#">Track My Order</a>
+                <a href="#">Help</a>
+            </div>
+            <div class="install">
+                <h3>Install App</h3>
+                <br>
+                <p>From App Store or Google Play</p>
+                <div class="download">
+                    <a href="#"><img src="images/pay/app.jpg" alt="App Store"></a>
+                    <a href="#"><img src="images/pay/play.jpg" alt="Google Play"></a>
+                </div>
+                <p>Secured Payment Gateways</p>
+                <img src="images/pay/pay.png" alt="Payment Methods">
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Product data
+        let products = [
+            {
+                id: 1,
+                name: "Cartoon Astronaut T-Shirt",
+                brand: "adidas",
+                price: 78,
+                category: "t-shirts",
+                image: "images/products/f1.jpg",
+                rating: 5
+            },
+            {
+                id: 2,
+                name: "Floral Print T-Shirt",
+                brand: "nike",
+                price: 65,
+                category: "t-shirts",
+                image: "images/products/f2.jpg",
+                rating: 4
+            },
+            {
+                id: 3,
+                name: "Blue Cartoon T-Shirt",
+                brand: "adidas",
+                price: 72,
+                category: "t-shirts",
+                image: "images/products/f3.jpg",
+                rating: 5
+            },
+            {
+                id: 4,
+                name: "White Cotton T-Shirt",
+                brand: "puma",
+                price: 55,
+                category: "t-shirts",
+                image: "images/products/f4.jpg",
+                rating: 4
+            },
+            {
+                id: 5,
+                name: "Green Casual T-Shirt",
+                brand: "nike",
+                price: 68,
+                category: "t-shirts",
+                image: "images/products/f5.jpg",
+                rating: 5
+            },
+            {
+                id: 6,
+                name: "Pink Summer T-Shirt",
+                brand: "adidas",
+                price: 75,
+                category: "t-shirts",
+                image: "images/products/f6.jpg",
+                rating: 4
+            },
+            {
+                id: 7,
+                name: "Classic Black Hoodie",
+                brand: "nike",
+                price: 95,
+                category: "hoodies",
+                image: "images/products/f7.jpg",
+                rating: 5
+            },
+            {
+                id: 8,
+                name: "Winter Jacket",
+                brand: "puma",
+                price: 120,
+                category: "jackets",
+                image: "images/products/f8.jpg",
+                rating: 4
+            },
+            {
+                id: 9,
+                name: "Vintage T-Shirt",
+                brand: "adidas",
+                price: 82,
+                category: "t-shirts",
+                image: "images/products/n1.jpg",
+                rating: 5
+            },
+            {
+                id: 10,
+                name: "Sports Hoodie",
+                brand: "nike",
+                price: 88,
+                category: "hoodies",
+                image: "images/products/n2.jpg",
+                rating: 4
+            },
+            {
+                id: 11,
+                name: "Denim Jacket",
+                brand: "puma",
+                price: 135,
+                category: "jackets",
+                image: "images/products/n3.jpg",
+                rating: 5
+            },
+            {
+                id: 12,
+                name: "Graphic Tee",
+                brand: "adidas",
+                price: 62,
+                category: "t-shirts",
+                image: "images/products/n4.jpg",
+                rating: 4
+            },
+            {
+                id: 13,
+                name: "Casual Hoodie",
+                brand: "nike",
+                price: 85,
+                category: "hoodies",
+                image: "images/products/n5.jpg",
+                rating: 5
+            },
+            {
+                id: 14,
+                name: "Stylish Jacket",
+                brand: "puma",
+                price: 140,
+                category: "jackets",
+                image: "images/products/n6.jpg",
+                rating: 4
+            },
+            {
+                id: 15,
+                name: "Summer T-Shirt",
+                brand: "adidas",
+                price: 70,
+                category: "t-shirts",
+                image: "images/products/n7.jpg",
+                rating: 5
+            },
+            {
+                id: 16,
+                name: "Comfort Hoodie",
+                brand: "nike",
+                price: 90,
+                category: "hoodies",
+                image: "images/products/n8.jpg",
+                rating: 4
+            },
+            {
+                id: 17,
+                name: "Leather Jacket",
+                brand: "puma",
+                price: 200,
+                category: "jackets",
+                image: "images/products/n9.jpg",
+                rating: 5
+            },
+            {
+                id: 18,
+                name: "Graphic Hoodie",
+                brand: "adidas",
+                price: 80,
+                category: "hoodies",
+                image: "images/products/n10.jpg",
+                rating: 4
+            },
+            {
+                id: 19,
+                name: "Casual Jacket",
+                brand: "nike",
+                price: 130,
+                category: "jackets",
+                image: "images/products/n11.jpg",
+                rating: 5
+            },
+            {
+                id: 20,
+                name: "Vintage Hoodie",
+                brand: "puma",
+                price: 95,
+                category: "hoodies",
+                image: "images/products/n12.jpg",
+                rating: 4
+            },
+            {
+                id: 21,
+                name: "Casual Hoodie",
+                brand: "adidas",
+                price: 85,
+                category: "hoodies",
+                image: "images/products/n13.jpg",
+                rating: 5
+            },
+            {
+                id: 22,
+                name: "Stylish Jacket",
+                brand: "nike",
+                price: 150,
+                category: "jackets",
+                image: "images/products/n14.jpg",
+                rating: 4
+            },
+            {
+                id: 23,
+                name: "Summer Hoodie",
+                brand: "puma",
+                price: 75,
+                category: "hoodies",
+                image: "images/products/n15.jpg",
+                rating: 5
+            },
+            {
+                id: 24,
+                name: "Winter Jacket",
+                brand: "adidas",
+                price: 180,
+                category: "jackets",
+                image: "images/products/n16.jpg",
+                rating: 4
+            }
+        ];
+
+        let cart = [];
+        let filteredProducts = [...products];
+        let currentPage = 1;
+        const productsPerPage = 8;
+
+        // Initialize page
+        window.onload = function() {
+            displayProducts();
+            updateCartCount();
+            updatePriceDisplay();
+        };
+
+        // Display products
+        function displayProducts() {
+            const startIndex = (currentPage - 1) * productsPerPage;
+            const endIndex = startIndex + productsPerPage;
+            const productsToShow = filteredProducts.slice(startIndex, endIndex);
+            
+            const productsGrid = document.getElementById('products-grid');
+            productsGrid.innerHTML = '';
+
+            productsToShow.forEach(product => {
+                const productElement = document.createElement('div');
+                productElement.className = 'product-cart';
+                productElement.innerHTML = `
+                    <img src="${product.image}" alt="${product.name}" />
+                    <span>${product.brand}</span>
+                    <h4>${product.name}</h4>
+                    <div class="stars">
+                        ${'<i class="fa-solid fa-star"></i>'.repeat(product.rating)}
+                    </div>
+                    <h4 class="price">$${product.price}</h4>
+                    <a href="#" onclick="addToCart(${product.id})">
+                        <i class="fa-solid fa-cart-shopping buy-icon"></i>
+                    </a>
+                `;
+                productsGrid.appendChild(productElement);
+            });
+
+            updateResultsCount();
+        }
+
+        // Filter products
+        function filterProducts() {
+            const categoryFilter = document.getElementById('category-filter').value;
+            const brandFilter = document.getElementById('brand-filter').value;
+            const priceFilter = parseInt(document.getElementById('price-filter').value);
+
+            filteredProducts = products.filter(product => {
+                const categoryMatch = categoryFilter === 'all' || product.category === categoryFilter;
+                const brandMatch = brandFilter === 'all' || product.brand === brandFilter;
+                const priceMatch = product.price <= priceFilter;
+                
+                return categoryMatch && brandMatch && priceMatch;
+            });
+
+            currentPage = 1;
+            displayProducts();
+            updatePriceDisplay();
+        }
+
+        // Sort products
+        function sortProducts() {
+            const sortValue = document.getElementById('sort-select').value;
+            
+            switch(sortValue) {
+                case 'price-low':
+                    filteredProducts.sort((a, b) => a.price - b.price);
+                    break;
+                case 'price-high':
+                    filteredProducts.sort((a, b) => b.price - a.price);
+                    break;
+                case 'name':
+                    filteredProducts.sort((a, b) => a.name.localeCompare(b.name));
+                    break;
+                case 'rating':
+                    filteredProducts.sort((a, b) => b.rating - a.rating);
+                    break;
+                default:
+                    filteredProducts = [...products];
+                    filterProducts();
+                    return;
+            }
+            
+            displayProducts();
+        }
+
+        // Update price display
+        function updatePriceDisplay() {
+            const priceValue = document.getElementById('price-filter').value;
+            document.getElementById('price-display').textContent = '$' + priceValue;
+        }
+
+        // Update results count
+        function updateResultsCount() {
+            const count = filteredProducts.length;
+            document.getElementById('results-count').textContent = `Showing ${count} product${count !== 1 ? 's' : ''}`;
+        }
+
+        // Add to cart
+        function addToCart(productId) {
+            const product = products.find(p => p.id === productId);
+            const existingItem = cart.find(item => item.id === productId);
+            
+            if (existingItem) {
+                existingItem.quantity += 1;
+            } else {
+                cart.push({...product, quantity: 1});
+            }
+            
+            updateCartCount();
+            
+            // Show brief animation or notification
+            const cartIcon = document.querySelector('.header-list-icon');
+            cartIcon.style.transform = 'scale(1.2)';
+            setTimeout(() => {
+                cartIcon.style.transform = 'scale(1)';
+            }, 200);
+        }
+
+        // Update cart count
+        function updateCartCount() {
+            const totalItems = cart.reduce((sum, item) => sum + item.quantity, 0);
+            document.getElementById('cart-count').textContent = totalItems;
+        }
+
+        // Open cart modal
+        function openCart() {
+            const modal = document.getElementById('cart-modal');
+            const cartItems = document.getElementById('cart-items');
+            const cartTotal = document.getElementById('cart-total');
+            
+            cartItems.innerHTML = '';
+            let total = 0;
+            
+            if (cart.length === 0) {
+                cartItems.innerHTML = '<p>Your cart is empty</p>';
+            } else {
+                cart.forEach(item => {
+                    const itemTotal = item.price * item.quantity;
+                    total += itemTotal;
+                    
+                    const cartItem = document.createElement('div');
+                    cartItem.className = 'cart-item';
+                    cartItem.innerHTML = `
+                        <div>
+                            <strong>${item.name}</strong><br>
+                            <small>$${item.price} x ${item.quantity}</small>
+                        </div>
+                        <div>
+                            <button onclick="changeQuantity(${item.id}, -1)" style="background: #ff6b6b; color: white; border: none; padding: 5px 10px; margin: 0 5px; border-radius: 3px; cursor: pointer;">-</button>
+                            <span>${item.quantity}</span>
+                            <button onclick="changeQuantity(${item.id}, 1)" style="background: #088178; color: white; border: none; padding: 5px 10px; margin: 0 5px; border-radius: 3px; cursor: pointer;">+</button>
+                            <button onclick="removeFromCart(${item.id})" style="background: #dc3545; color: white; border: none; padding: 5px 10px; margin-inline-start: 10px; border-radius: 3px; cursor: pointer;">Remove</button>
+                        </div>
+                    `;
+                    cartItems.appendChild(cartItem);
+                });
+            }
+            
+            cartTotal.textContent = `Total: $${total.toFixed(2)}`;
+            modal.style.display = 'block';
+        }
+
+        // Close cart modal
+        function closeCart() {
+            document.getElementById('cart-modal').style.display = 'none';
+        }
+
+        // Change quantity
+        function changeQuantity(productId, change) {
+            const item = cart.find(item => item.id === productId);
+            if (item) {
+                item.quantity += change;
+                if (item.quantity <= 0) {
+                    removeFromCart(productId);
+                } else {
+                    updateCartCount();
+                    openCart(); // Refresh cart display
+                }
+            }
+        }
+
+        // Remove from cart
+        function removeFromCart(productId) {
+            cart = cart.filter(item => item.id !== productId);
+            updateCartCount();
+            openCart(); // Refresh cart display
+        }
+
+        // Checkout
+        function checkout() {
+            if (cart.length === 0) {
+                alert('Your cart is empty!');
+                return;
+            }
+            
+            const total = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            alert(`Thank you for your purchase! Total: $${total.toFixed(2)}`);
+            cart = [];
+            updateCartCount();
+            closeCart();
+        }
+
+        // Pagination
+        function changePage(direction) {
+            const maxPages = Math.ceil(filteredProducts.length / productsPerPage);
+            currentPage += direction;
+            
+            if (currentPage < 1) currentPage = 1;
+            if (currentPage > maxPages) currentPage = maxPages;
+            
+            displayProducts();
+            updateActivePage();
+        }
+
+        function goToPage(page) {
+            currentPage = page;
+            displayProducts();
+            updateActivePage();
+        }
+
+        function updateActivePage() {
+            const paginationLinks = document.querySelectorAll('.pagination a');
+            paginationLinks.forEach(link => link.classList.remove('active'));
+            
+            // Add active class to current page (simplified for demo)
+            if (currentPage <= 3) {
+                const activeLink = document.querySelector(`.pagination a[onclick="goToPage(${currentPage})"]`);
+                if (activeLink) activeLink.classList.add('active');
+            }
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('cart-modal');
+            if (event.target === modal) {
+                closeCart();
+            }
+        }
+    </script>
+</body>
+</html>
